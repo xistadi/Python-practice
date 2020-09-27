@@ -1,0 +1,553 @@
+Строки неизменяемый тип данных
+# in python 3.6
+name = 'World'
+a = 34
+print(f'Hello, {name}!\t {a}')
+
+Функция или метод
+S1 + S2 - Конкатенация (сложение строк)
+S1 * 3 - Повторение строки
+S[i] - Обращение по индексу
+S[i:j:step] - Извлечение среза
+len(S) - Длина строки
+S.find(str, [start],[end]) - Поиск подстроки в строке. Возвращает номер первого вхождения или -1
+S.rfind(str, [start],[end]) - Поиск подстроки в строке. Возвращает номер последнего вхождения или -1
+S.index(str, [start],[end]) - Поиск подстроки в строке. Возвращает номер первого вхождения или вызывает ValueError
+S.rindex(str, [start],[end]) - Поиск подстроки в строке. Возвращает номер последнего вхождения или вызывает ValueError
+
+S.replace(шаблон, замена) - Замена шаблона
+my_str = 'barbarian'
+    my_str = my_str.replace('bar', 'mur')  # 'murmurian'
+    my_str = my_str.replace('mur', 'bur', 1)  # 'burmurian'
+
+S.split(символ) - Разбиение строки по разделителю
+S.isdigit() - Состоит ли строка из цифр
+S.isalpha() - Состоит ли строка из букв
+S.isalnum() - Состоит ли строка из цифр или букв
+S.islower() - Состоит ли строка из символов в нижнем регистре
+S.isupper() - Состоит ли строка из символов в верхнем регистре
+S.isspace() - Состоит ли строка из неотображаемых символов
+S.istitle() - Начинаются ли слова в строке с заглавной буквы
+
+S.upper() - Преобразование строки к верхнему регистру
+S.lower() - Преобразование строки к нижнему регистру
+S.startswith(str) - Начинается ли строка S с шаблона str
+S.endswith(str) - Заканчивается ли строка S шаблоном str
+S.join(список) - Сборка строки из списка с разделителем S
+ord(символ) - Символ в его код ASCII
+chr(число) - Код ASCII в символ
+S.capitalize() - Переводит первый символ строки в верхний регистр, а все остальные в нижний
+S.center(width, [fill]) - Возвращает отцентрованную строку, по краям которой стоит символ fill (пробел по умолчанию)
+S.count(str, [start],[end]) - Возвращает количество непересекающихся вхождений подстроки в диапазоне [начало, конец] (0 и длина строки по умолчанию)
+S.expandtabs([tabsize]) - Возвращает копию строки, в которой все символы табуляции заменяются одним или несколькими пробелами, в зависимости от текущего столбца. Если TabSize не указан, размер табуляции полагается равным 8 пробелам
+S.lstrip([chars])/S.rstrip([chars]) - Удаление пробельных символов в начале/конце строки
+S.strip([chars]) - Удаление пробельных символов в начале и в конце строки
+S.partition(шаблон) - Возвращает кортеж, содержащий часть перед первым шаблоном, сам шаблон, и часть после шаблона. Если шаблон не найден, возвращается кортеж, содержащий саму строку, а затем две пустых строки
+S.rpartition(sep) - Возвращает кортеж, содержащий часть перед последним шаблоном, сам шаблон, и часть после шаблона. Если шаблон не найден, возвращается кортеж, содержащий две пустых строки, а затем саму строку
+S.swapcase() - Переводит символы нижнего регистра в верхний, а верхнего – в нижний
+S.title() - Первую букву каждого слова переводит в верхний регистр, а все остальные в нижний
+S.zfill(width) - Делает длину строки не меньшей width, по необходимости заполняя первые символы нулями
+S.ljust(width, fillchar=" ") - Делает длину строки не меньшей width, по необходимости заполняя последние символы символом fillchar
+S.rjust(width, fillchar=" ") - Делает длину строки не меньшей width, по необходимости заполняя первые символы символом fillchar
+
+
+====================================================================================
+Список объектов
+List - упорядоченный список.
+List - может содержать любые объекты
+Доступ к элементам осуществляется по индексу
+Списки могут быть вложенными
+Список - изменяемый тип данных
+Список - динамическая структура
+
+методы списков
+list.append(x) - Добавляет элемент в конец списка
+list.extend(L) - Расширяет список list, добавляя в конец все элементы списка L
+list.insert(i, x) - Вставляет на i-ый элемент значение x
+list.remove(x) - Удаляет первый элемент в списке, имеющий значение x. ValueError, если такого элемента не существует
+list.pop([i]) - Удаляет i-ый элемент и возвращает его. Если индекс не указан, удаляется последний элемент
+list.index(x, [start [, end]]) - Возвращает положение первого элемента со значением x (при этом поиск ведется от start до end)
+list.count(x) - Возвращает количество элементов со значением x
+list.sort([key=функция]) - Сортирует список на основе функции
+list.reverse() - 	Разворачивает список
+list.copy() - Поверхностная копия списка
+list.clear() - Очищает список
+del list[0] - удаляет на позиции 0
+ordered_students = sorted(students) - не изменяя порядка изначального списка
+students.sort() - изменяя сам список
+
+Список в обратном порядке 
+students.reverse() - изменяет сам список
+reversed(students) - без изменения самого списка
+students[::-1]
+
+a = [int(i) for i in input().split()] #ввод через пробел
+
+Убрать дубли
+a = [1, 1, 2, 2] 
+set(a) #[1, 2]
+
+
+====================================================================================
+
+Кортежи - защита от дурака
+Почти как список
+Неизменяемый тип данных!!!
+t = () # пустой кортеж
+a, b = b, a - поменять местами значения двух переменных
+
+====================================================================================
+
+Словарь - <ключ, значение>
+Похожи на списки в свете того, что это коллекции объектов
+Динамические
+Могут быть вложенными
+Доступ к элементам осществляется по ключу (у списка - по индексу)
+Неупорядоченный тип данных - нет ( не было) гарантии, что пары ключ/значения останутся в том порядке, в которм были помещены в словарь (см. п 4)
+Ключом может быть любой объект **Неизменяемого типа**
+
+Методы словарей
+dict.clear() - очищает словарь
+dict.copy() - возвращает копию словаря.
+classmethod dict.fromkeys(seq[, value]) - создает словарь с ключами из seq и значением value (по умолчанию None).
+dict.get(key[, default]) - возвращает значение ключа, но если его нет, не бросает исключение, а возвращает default (по умолчанию None).
+dict.items() - возвращает пары (ключ, значение).
+dict.keys() - возвращает ключи в словаре.
+dict.pop(key[, default]) - удаляет ключ и возвращает значение. Если ключа нет, возвращает default (по умолчанию бросает исключение).
+dict.popitem() - удаляет и возвращает пару (ключ, значение). Если словарь пуст, бросает исключение KeyError. Помните, что словари неупорядочены.
+dict.setdefault(key[, default]) - возвращает значение ключа, но если его нет, не бросает исключение, а создает ключ с значением default (по умолчанию None).
+dict.update([other]) - обновляет словарь, добавляя пары (ключ, значение) из other. Существующие ключи перезаписываются. Возвращает None (не новый словарь!).
+dict.values() - возвращает значения в словаре.
+print(key in dictionary) #есть ли в словаре 
+print(key not in dictionary) #нету ли в словаре 
+Перебор элементов словаря 
+d = {'C': 14, 'A': 12, 'T': 9, 'G': 18}
+for key in d:
+    print(key, end=' ')  #C A T G
+
+for key in d.keys():
+    print(key, end=' ') #C A T G
+
+for value in d.values():
+    print(value, end=' ') # 14 12 9 18
+
+for key, value in d.items():
+    print(key, value, end='; ') # C 14; A 12; T 9; G 18;
+
+====================================================================================
+
+Множество
+список неповторяющихся элементов(объектов)
+удобно использовать для исключения дублей в списках
+
+s = set() # создание пустого множества
+Операции с множествами
+s.add(element) # добавление
+s.remove(element) # удаление если нету то ошибка
+s.discard(element) # удаление если нету то не будет ошибки
+s.clear() # удаление всего
+set.pop() - удаляет первый элемент из множества. Так как множества не упорядочены, нельзя точно сказать, какой элемент будет первым.
+
+====================================================================================
+
+Функции 
+Замыкания 
+def mul(a): # замыкания
+    # a = 5 
+    def helper(b):
+        return a * b
+    return helper # тут функция mul возвращает функцию helper, с "залипшей" снаружи переменной a
+
+mul_5 = mul(5) # тут в mul_5 прилетела функция helper, с залипшей a=5
+mul_5(10) # тут выполняется функция helper, тк ее на предыдущем шаге сохранили в mul_5
+# в helper b умножаем a
+====================================================================================
+
+Декораторы
+def dec(func):
+    # @functools.wraps(func)
+    # new_func/func - висит в замыкании
+    def wrapper_decorator(*args, **kwargs):
+        args = ("The " + args[0],)
+        value = func(*args, **kwargs)
+        # Do something after
+        return value
+    return wrapper_decorator
+
+@dec
+def new_func(name):
+    print(f'Hello {name}')
+
+new_decorated_func = dec(new_func)
+
+new_decorated_func("ddd") # new_decorated_func
+
+====================================================================================
+
+Генераторы
+def my_generator():
+    yield 'vasia' # вернули значение, замер на этом месте, вырнул управление
+    yield 'fedor'
+    yield 'ivan'
+    raise StopIteration
+
+g = my_generator() # активация генератора
+next(g)
+
+====================================================================================
+
+Файлы
+f = open('text.txt', 'r')
+s1 = inf.readline() # чтение первой строки
+s2 = inf.readline()  # чтение второй строки
+inf.close() 
+'r'	открытие на чтение (является значением по умолчанию).
+'w'	открытие на запись, содержимое файла удаляется, если файла не существует, создается новый.
+'x'	открытие на запись, если файла не существует, иначе исключение.
+'a'	открытие на дозапись, информация добавляется в конец файла.
+'b'	открытие в двоичном режиме.
+'t'	открытие в текстовом режиме (является значением по умолчанию).
+'+'	открытие на чтение и запись
+
+with open('text.txt') as inf: #так рекомендуется 
+    s1 = inf.readline()
+    s2 = inf.readline()
+
+s = inf.readline().strip()
+'\t abc \n'.strip() -> 'abc' # без всяких \t и \n
+
+# Построчное чтение из файла
+with open('input.txt') as inf:
+    for line in inf:
+        line = line.strip()
+        print(line)
+
+Запись в файл
+ouf = open('file.txt', 'w')
+ouf.write('Some text\n')
+ouf.write(str(25))
+ouf.close()
+
+with open('text.txt', 'w') as ouf:
+    ouf.write('Some text\n')
+    ouf.write(str(25))
+
+n = 0 # start position in bytes
+fp.seek(n) # Change the stream position to the given byte offset (n).
+print(fp.read()) # прочитать 
+
+fp.readline() # read a single line, memory safe
+len(fp.readlines())# сколько строк?
+
+====================================================================================
+
+Анонимные функции, инструкция lambda
+func = lambda x, y: x + y
+func(1, 2) # 3
+
+func('a', 'b') #'ab'
+
+(lambda x, y: x + y)(1, 2) #3
+(lambda x, y: x + y)('a', 'b') #'ab'
+
+====================================================================================
+
+ООП 
+Классы
+
+class Car():
+	"""docstring for Car"""
+	def __init__(self, make, model, year):
+		"""Инициализация атрибутов"""
+		self.make = make
+		self.model = model
+		self.year = year
+		self.odometer_reading = 0
+
+	def description_name(self):
+		desc = str(self.year) + " " + self.make + " " + self.model
+		return desc.title()
+
+	def read_odometer(self):
+		"""Вывод пробега авто"""
+		print("Пробег авто: " + str(self.odometer_reading) + " км")
+
+	def update_odometer(self, km):
+		"""Устанавливаем значение на одометре"""
+		if km >= self.odometer_reading:
+			self.odometer_reading = km
+		else:
+			print("Скручивать нельзя!")
+
+	def increment_odometer(self, km):
+		"""Увеличиваем одометра щначение"""
+		if km < 0:
+			print("Скручивание не пройдет!")
+		else:
+			self.odometer_reading += km
+
+====================================================================================
+def __del__(self):
+
+class Person:
+    # конструктор
+    def __init__(self, name):
+        self.name = name  # устанавливаем имя
+ 
+    def __del__(self):
+        print(self.name,"удален из памяти")
+
+
+person1 = Person("Tom")
+del person1     # удаление из памяти
+====================================================================================
+
+Наследование
+class Car(): # супер класс
+	"""docstring for Car"""
+	def __init__(self, make, model, year):
+		"""Инициализация атрибутов"""
+		self.make = make
+		self.model = model
+		self.year = year
+		self.odometer_reading = 0
+
+	def description_name(self):
+		desc = str(self.year) + " " + self.make + " " + self.model
+		return desc.title()
+
+	def read_odometer(self):
+		"""Вывод пробега авто"""
+		print("Пробег авто: " + str(self.odometer_reading) + " км")
+
+	def update_odometer(self, km):
+		"""Устанавливаем значение на одометре"""
+		if km >= self.odometer_reading:
+			self.odometer_reading = km
+		else:
+			print("Скручивать нельзя!")
+
+	def increment_odometer(self, km):
+		"""Увеличиваем одометра щначение"""
+		if km < 0:
+			print("Скручивание не пройдет!")
+		else:
+			self.odometer_reading += km
+
+
+class Battery():
+	"""Аккумулятор для электроавто"""
+	def __init__(self, battery = 100):
+		self.battery = battery
+
+	def description_battery(self):
+		print("Батарея мощностью: " + str(self.battery) + " киловат")
+
+
+class ElectricCar(Car): #создали экземпляр класса который строиться на родителе Car(дочерний класс)
+	def __init__(self, make, model, year): #копируем с Car
+		"""Инициализация атрибутов родителя"""
+		super().__init__(make, model, year) #связываем c Car
+		self.battery = Battery() #атрибут self.battery равняется классу Battery
+
+	def description_name(self):
+		"""Переопределение родительского метода"""
+		desc = self.model + " " + str(self.year) + " " + str(self.battery) 
+		return desc.title()
+		
+	
+tesla = ElectricCar("tesla", "model s ", 2017)
+print(tesla.description_name())
+tesla.battery.description_battery() #мы используем только то что есть в классе Battery
+
+====================================================================================
+JSON
+import json
+nums = [23, 33, 12, 39, 60, 6, 10]
+
+filename = "nums.json"
+with open(filename, "w") as f:
+    json.dump(nums, f) #запись в файл f
+
+file = "nums.json"
+with open(file) as f:
+    nums_new = json.load(f) #выгружаем из файла f
+
+print(nums_new)
+
+Еще один пример:
+import json
+
+def get_username():
+    """Получает имя пользователя если оно есть"""
+    filename = "user.json"
+    try:
+        with open(filename) as f:
+            user = json.load(f)
+    except FileNotFoundError:
+        return None
+    else:
+        return user
+
+def greet_user():
+    """Приветсвие пользователя"""
+    username = get_username()
+    if username:
+        print("Добро пожаловать " + username + "!")
+    else:
+        username = input("Введите ваше имя: ")
+        filename = "user.json"
+        with open(filename, "w", encoding="utf-8") as f:
+            json.dump(username, f, ensure_ascii=False)
+            print("Мы запомним ваше имя как " + username + "!")
+
+greet_user()
+
+json.dumps / loads - со строками
+
+====================================================================================
+
+PICKLE
+import pickle
+pickle.dumps / loads - может хранить в себе функции 
+
+====================================================================================
+
+Тестирование 
+unittest - инструмент для тестирования в Python
+
+test case
+test case -это наименьшая единица тестирования. Он проверяет конкретный ответ для конкретного набора входных данных
+
+test suite
+test suite представляет собой сборник тестовых случаев, тестовых наборов. Используется для агрегирования тестов, которые должны выполняться вместе.
+
+test fixture
+test fixture - это фиксированное состояние объектов используемых в качестве исходного при выполнении тестов.
+
+test runner
+test runner - это компонент, который организует выполнение тестов и предоставляет результат пользователю.
+
+Пример :
+import unittest
+
+class TestUM(unittest.TestCase):
+    def setUp(self): #вызывается ПЕРЕД каждым тестом.
+        pass
+
+    def tearDown(self): #вызывается ПОСЛЕ каждого теста
+        pass
+
+    def test_numbers_3_4(self):
+        self.assertEqual(3 * 4, 12)
+
+    def test_strings_a_3(self):
+        self.assertEqual('a' * 3, 'aaa')
+
+
+if __name__ == '__main__':
+    unittest.main()
+
+setUp – подготовка прогона теста; вызывается перед каждым тестом.
+tearDown – вызывается после того, как тест был запущен и результат записан. Метод запускается даже в случае исключения (exception) в теле теста.
+setUpClass – метод вызывается перед запуском всех тестов класса.
+tearDownClass – вызывается после прогона всех тестов класса.
+setUpModule – вызывается перед запуском всех классов модуля.
+tearDownModule – вызывается после прогона всех тестов модуля.
+
+import unittest
+class TestUM(unittest.TestCase):
+
+    def testAssertTrue(self):
+        """
+        Вызывает ошибку если значение аргумента != True
+        :return:
+        """
+        self.assertTrue(True)
+
+    def testFailUnless(self):
+        """
+        Устаревшее название для assertTrue()
+        Вызывает ошибку если значение аргумента != True
+        :return:
+        """
+        self.failUnless(True)
+
+    def testFailIf(self):
+        """
+        Устаревшая функция, теперь называется assertFalse()
+        :return:
+        """
+        self.failIf(False)
+
+    def testAssertFalse(self):
+        """
+        Если значение аргумент != False, то кидает ошибку
+        :return:
+        """
+        self.assertFalse(False)
+
+    def testEqual(self):
+        """
+        Проверка равенства двух аргументов
+        :return:
+        """
+        self.failUnlessEqual(1, 3 - 2)
+
+    def testNotEqual(self):
+        """
+        Проверка НЕ равенства двух аргументов
+        :return:
+        """
+        self.failIfEqual(2, 3 - 2)
+
+    def testEqualFail(self):
+        """
+        Ругается если значение аргументов равно
+        :return:
+        """
+        self.failIfEqual(1, 2)
+
+    def testNotEqualFail(self):
+        """
+        Ругается если значение аргументов не равно
+        :return:
+        """
+        self.failUnlessEqual(2, 3 - 1)
+
+    def testNotAlmostEqual(self):
+        """
+        Старое название функции.
+        Теперь называется assertNotAlmostEqual()
+        Сравнивает два аргумента с округлением, можно задать это округление
+        Ругается если значения равны
+        :return:
+        """
+        self.failIfAlmostEqual(1.1, 3.3 - 2.0, places=1)
+
+    def testAlmostEqual(self):
+        """
+        Старое название функции
+        Теперь называется assertAlmostEqual()
+        Сравнивает два аргумента с округлением, можно задать это округление
+        Ругается если значения не равны
+        :return:
+        """
+        self.failUnlessAlmostEqual(1.1, 3.3 - 2.0, places=0)
+
+
+if __name__ == '__main__':
+    unittest.main()
+
+
+Ссылки по тестам - https://ru.hexlet.io/courses/advanced_python/lessons/python_testing_unittest/theory_unit
+https://proglib.io/p/python-testing/
+====================================================================================
+Популярные методы (основные)
+assertEqual(a,b) - проверяет a==b
+assertNotEqual(a,b) - проверяет a!=b
+assertTrue(x) - проверяет что значение x истино
+assertFalse(x) - проверяет что значение x ложно
+assertIn(элемент, список) - проверяет тчо елемен входит в список
+assertNotIn(элемент, список) - проверяет что элемен не входит в список
+
