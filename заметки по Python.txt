@@ -1,3 +1,8 @@
+====================================================================================
+Типы данных
+Изменяемые: list, dict, set
+Неизменяемые: bool, None, function, int, float, complex, Decimal, Fractions, str, bytes, tuple, range, fronzenset
+====================================================================================
 Строки неизменяемый тип данных
 # in python 3.6
 name = 'World'
@@ -209,7 +214,7 @@ inf.close()
 't'	открытие в текстовом режиме (является значением по умолчанию).
 '+'	открытие на чтение и запись
 
-with open('text.txt') as inf: #так рекомендуется 
+with open('text.txt') as inf: #так рекомендуется менеджер контекста with ... as .. автоматом закрывает 
     s1 = inf.readline()
     s2 = inf.readline()
 
@@ -255,6 +260,197 @@ func('a', 'b') #'ab'
 ООП 
 Классы
 
+Каждый объект - экземпляр какого-то класса
+Класс - проект объект(ов) и их фабрика
+Проект многоэтажного дома(Класс) -> Построенное по этому проекту здание(Объект)
+
+ООП принципы конструрирования: 
+Абстракция - позволяет прятать свойства объектов от пользователя
+Инкапсуляция - что-то прячется одно в нутрь другого
+Наследование - классы могут наследовать от другого класса допустим методы
+Композиция - почти тоже что и наследование новые данные получаем путем композиции разных классов(внутри класса) 
+Полиморфизм - одни и те же методы ведут себя по разному в зависимости от того с каким классом данных мы работаем
+
+
+class Dog: # создаем класс - проект будущих объектов
+    # конструктор объекта вызывается неявно
+    # инициализатор объекта - инициализирует уже созданный объект
+    def __init__(self, name, age):
+        # магический метод, срабатывает 1 раз, после создания объекта
+        # все новые атрибуты создаем здесь(рекомендация)
+        self.name = name
+        self.age = age
+        # name и age нам должы поступить на вход метода при создании
+        # объекта. Self(созданный/данный объект) нам подкидвает python
+        # self.name - мы у нашего объекта создаем свойство name(.name) и присваиваем
+        # ему значение name (=name). Таким образом инициализируем свойство .name входным параметром name
+
+
+====================================================================================
+Свойства/Атрибуты класса
+class Dog:
+    # инициализатор объекта
+    paws = 4
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    
+    def bark(self, times):
+        print(f"{self.name} barks {times} times has age of {self.age}")
+
+    def run(self):
+        print(f"{self.name} runs")
+        self.bark(4)
+
+d = Dog('Граф', 3)
+Dog.paws #4
+d.paws #4
+d.paws = 3 #paws для d = 3
+Dog.paws #для класса Dog paws все еще 4
+
+====================================================================================
+
+Приватность методов и свойств
+Публичные, приватные, протектед
+
+class Dog:
+    # инициализатор объекта
+    paws = 4
+    def __init__(self, name, age, address):
+        self.name = name
+        self.age = age
+        self._owner_address = address # `протектед` не преднз для изменения
+
+Нижнее подчеркивание сигнализирует о протектед ("_") 
+Но мы его все равно можем поменять это просто сигнал что не стоит 
+
+class Dog:
+    # инициализатор объекта
+    paws = 4
+    def __init__(self, name, age, address):
+        self.name = name
+        self.age = age
+        self.__owner_address = address # `приватный` - `скрытый` вне объекта
+        # __owner_address не предн для прямого доступа, только через методы
+    def send_notification(self):
+        print("Сообщение было отправлено по адресу {}".format(self.__owner_address))
+
+Два нижних это прайвет ("__")
+Мы его уже изменить сможем только если сделаем вот так d._Dog__owner_address
+Тоесть проблемы с приватностью есть. 
+====================================================================================
+Методы классов 
+Этот метод не знает об объектах и не знает об конкретных реализациях класса. 
+Знает только об самом классе.
+@classmethod #декоратор 
+class Dog:
+    # инициализатор объекта
+    paws = 4
+    def __init__(self, name, age, address):
+        self.name = name
+        self.age = age
+    @classmethod
+    def bark(cls, times):
+        print(f"The dog barks {times} times and has {cls.paws} paws"
+        cls.temp("22")
+
+    @staticmethod
+    def get_description():
+        return f"Собака - млекопитающее с 4 лапами и хвостом."
+
+    def temp(self):
+        print("I'm temp", self)
+@staticmethod - тоже декоратор, статический метод
+не знает о классе в котором он находится ни об объектах
+====================================================================================
+    @property
+    def age_month(self):
+        return self.age * 12 #преобразуем годы в месяцы
+@property - теперь у нас функция это атрибут 
+можем вызвать его без ()
+d.age_month # выведет self.age * 12
+d.age_month = 70 #ошибка записать в него мы ничего не можем
+
+====================================================================================
+Getters and setters
+class Dog:
+    # инициализатор объекта
+    paws = 4
+    def __init__(self, name, age, address):
+        self.name = name
+        self.age = age
+
+    @property
+    def age_month(self):
+        return self.age * 12 #преобразуем годы в месяцы
+
+    @property.setter #добавилось из-за @property
+    # setter срабатывает при записи в свойство
+    def age_month(self, age_month):
+        self.age = age_month / 12 #переопределили на деление 
+
+    @property.getter
+    #getter срабатывает при чтении свойства
+    def age_month(self):
+        return "self.age * 12"
+====================================================================================
+Магические методы
+Они всё в объектно-ориентированном Питоне. Это специальные методы, 
+с помощью которых вы можете добавить в ваши классы «магию». 
+
+с двойным подчеркиванием (__str__)
+__str__(self) - человекочитаемое представление объекта
+__repr__(self) - Официальное пресдавление объекта
+__it__(self, other) - сравнение объектов
+class Dog:
+    # инициализатор объекта
+    paws = 4
+    def __init__(self, name, age, address):
+        self.name = name
+        self.age = age
+
+    @property
+    def age_month(self):
+        return self.age * 12 #преобразуем годы в месяцы
+
+    @property.setter #добавилось из-за @property
+    # setter срабатывает при записи в свойство
+    def age_month(self, age_month):
+        self.age = age_month / 12 #переопределили на деление 
+
+    def __repr__(self):
+        return f"Dog ({self.name}, {self.age})"
+
+    def __str__(self):
+        return f"Собака по имени {self.name}"
+#проверка
+d = Dog("Lord", 4)
+print(d) #__str__
+d #__repr__
+====================================================================================
+Сравнение
+    def __lt__(self, other_dog):
+        #сравниваем исходную собаку self с другой
+        #по возрасту
+        return self.age < other_dog.age
+
+    def __gt__(self, other_dog):
+        return self.age > other_dog.age
+small_dog = Dog("Lol", 1)
+big_dog = Dog("BigLol", 10)
+small_dog < big_dog #True
+small_dog > big_dog #False
+
+====================================================================================
+Сложение объектов
+    def __add__(self, other_dog):
+        puppies = random.randint(1, 5)
+        return tuple(Dog("I have no name", 0) for i in range(puppies))
+male = Dog("kek", 4)
+female = Dog("kekw", 5)
+male + female #срабатывает __add__
+====================================================================================
 class Car():
 	"""docstring for Car"""
 	def __init__(self, make, model, year):
@@ -301,8 +497,120 @@ class Person:
 person1 = Person("Tom")
 del person1     # удаление из памяти
 ====================================================================================
-
 Наследование
+class Car:
+    """docstring for Car"""
+    def __init__(self, color):
+        self.color = color
+    def run(self):
+        return "Runs"
+    def stop(self):
+        return "Stops"
+        
+
+class Lorry(Car): #используем родительский класс
+    """docstring for Lorry"""
+    def __init__(self, wheels, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.wheels = wheels
+
+    def run(self, *args, **kwargs):
+        run_type = super().run(*args, **kwargs) #обращение к родителю
+        return f"{run_type} slowly"
+====================================================================================
+Абстрактный класс - с него нельзя сделать объект       
+from abc import ABC, abstractmethod
+class AbsCar(ABC):
+    """docstring for AbsCar"""
+    @abstractmethod
+    def get_weight(self):
+        pass
+a = AbsCar() #ошибка
+
+Но сможем сделать если унаследоваться от него и переписать get_weight()
+class Car:
+    """docstring for Car"""
+    def __init__(self, color):
+        self.color = color
+    def run(self):
+        return "Runs"
+    def stop(self):
+        return "Stops"
+    def get_weight(self):
+        return "I'm heavy"
+a = Car("red") #нету ошибки
+====================================================================================
+Множественное наследование
+class Inp:
+    def can_input(self):
+        return "I can input data"
+
+class Otp:
+    def can_output(self):
+        return "I can output data"
+
+
+class InpOtp(Inp, Otp):
+    pass
+twoway = IntOtp()
+inp = Inp()
+otp = Otp()
+inp.can_input() #может
+inp.can_output() #не может
+otp.can_input() #не может
+otp.can_output() #может
+twoway.can_input() #может
+twoway.can_output() #может
+
+
+Наследование 
+InpOtp.__mro__ - кто как наследуется
+Можем поменять этот порядок 
+class Top:
+    def __init__(self,color):
+        self.color = color + " top"
+
+class Middle(Top):
+    def __init__(self,color):
+        self.color = color + " middle"
+
+class Final(Middle):
+    pass
+f = Final("red")
+f.color #выведет "red middle" тоесть к ближайшему 
+class Top:
+    def __init__(self,color):
+        self.color = color + " top"
+
+class Middle(Top):
+    def __init__(self,color):
+        self.color = color + " middle"
+
+class Final(Middle):
+    def __init__(self,color):
+        super(Middle, self).__init__(color)
+f = Final("red")
+f.color #выведет "red top" сразу к топу 
+
+
+isinstance(twotay, Inp) #True - проверка является ли он потомком 
+hasattr(twoway, "can_input") #имеет атрибут?
+method = getattr(twoway, "can_input", "deaguld") #получить значение атрибута выведет "deaguld" если такого нету
+====================================================================================
+Миксины
+class MyMixin:
+    def mixin_method(self):
+        print("from mixin")
+
+m = MyMixin()
+
+class InpOtp(MyMixin, Inp, Otp):
+    pass
+
+ioo = InpOtp()
+ioo.mixin_method() #"from mixin"
+====================================================================================
+Наследование от ютуба
 class Car(): # супер класс
 	"""docstring for Car"""
 	def __init__(self, make, model, year):
@@ -551,3 +859,190 @@ assertFalse(x) - проверяет что значение x ложно
 assertIn(элемент, список) - проверяет тчо елемен входит в список
 assertNotIn(элемент, список) - проверяет что элемен не входит в список
 
+====================================================================================
+Модуль datetime
+
+import datetime
+datetime.MINYEAR #1
+datetime.MAXYEAR #9999
+datetime.datetime.now() # настоящее время datetime.datetime(2020, 9, 28, 19, 25, 23, 110441)
+datetime.datetime.now().date() # только дата без времени datetime.date(2020, 9, 28)
+date.year #2020
+datetime.date(2019, 12, 3) #устанавливаем собственное время datetime.date(year, month, day)
+datetime.time(hour=0, minute=0, second=0, microsecond=0, tzinfo=None) - стандартное время, не зависит от даты
+datetime.timedelta - разница между двумя моментами времени, с точностью до микросекунд.
+datetime.tzinfo - абстрактный базовый класс для информации о временной зоне (например, для учета часового пояса и / или летнего времени).
+datetime.datetime(year, month, day, hour=0, minute=0, second=0, microsecond=0, tzinfo=None) - комбинация даты и времени.
+datetime.today() - объект datetime из текущей даты и времени. Работает также, как и datetime.now() со значением tz=None.
+
+datetime.fromtimestamp(timestamp) - дата из стандартного представления времени.
+
+datetime.fromordinal(ordinal) - дата из числа, представляющего собой количество дней, прошедших с 01.01.1970.
+
+datetime.now(tz=None) - объект datetime из текущей даты и времени.
+
+datetime.combine(date, time) - объект datetime из комбинации объектов date и time.
+
+datetime.strptime(date_string, format) - преобразует строку в datetime (так же, как и функция strptime из модуля time).
+
+datetime.strftime(format) - см. функцию strftime из модуля time.
+
+datetime.date() - объект даты (с отсечением времени).
+
+datetime.time() - объект времени (с отсечением даты).
+
+datetime.replace([year[, month[, day[, hour[, minute[, second[, microsecond[, tzinfo]]]]]]]]) - возвращает новый объект datetime с изменёнными атрибутами.
+
+datetime.timetuple() - возвращает struct_time из datetime.
+
+datetime.toordinal() - количество дней, прошедших с 01.01.1970.
+
+datetime.timestamp() - возвращает время в секундах с начала эпохи.
+
+datetime.weekday() - день недели в виде числа, понедельник - 0, воскресенье - 6.
+
+datetime.isoweekday() - день недели в виде числа, понедельник - 1, воскресенье - 7.
+
+datetime.isocalendar() - кортеж (год в формате ISO, ISO номер недели, ISO день недели).
+
+datetime.isoformat(sep='T') - красивая строка вида "YYYY-MM-DDTHH:MM:SS.mmmmmm" или, если microsecond == 0, "YYYY-MM-DDTHH:MM:SS"
+====================================================================================
+
+tzinfo - информация о временной таймзоне
+pip install pytz
+import pytz # необходимо установить (pip install pytz)
+
+pytz.timezone("America/Belem") #установка таймзоны для америки белема
+pytz.all_timezones #посмотреть список таймзон
+pytz.timezone("Europe/Minsk") #<DstTzInfo 'Europe/Minsk' LMT+1:50:00 STD>
+datetime.datetime(2019, 3, 23, 13, 10, 52,tzinfo=tz_minsk)
+d.tzinfo.utcoffset(d) #разница времени datetime.timedelta(seconds=6600)
+
+правильное добавление информации о зоне
+ct_minsk.utcoffset() # для Минска сдвиг 6600 сек - ошибка
+ct_minsk = datetime.datetime.now()
+tz_minsk #<DstTzInfo 'Europe/Minsk' LMT+1:50:00 STD>
+d_minsk = tz_minsk.localize(ct_minsk) # так рекомендует документация datetime.datetime(2020, 9, 28, 19, 48, 29, 332973, tzinfo=<DstTzInfo 'Europe/Minsk' +03+3:00:00 STD>)
+d_minsk.utcoffset() # теперь оффсет правильный datetime.timedelta(seconds=10800)
+
+utc_time = datetime.datetime.utcnow() #datetime.datetime(2020, 9, 28, 16, 52, 49, 107455)
+
+date = datetime.date(2017, 1, 15)
+====================================================================================
+
+Преобразования из/в строку
+tn = datetime.datetime.now() # datetime.datetime(2020, 9, 28, 20, 14, 36, 990477)
+str_tn = tn.strftime("%d.%m.%Y  %H.%M.%S") # time to string #'28.09.2020  20.14.36'
+
+time_as_string = '18.03.19 13:27'
+time_obj = datetime.datetime.strptime('18.03.19 13:27', '%d.%m.%y %H:%M') #datetime.datetime(2019, 3, 18, 13, 27)
+====================================================================================
+
+Calendar
+import calendar #если надо гугли 
+
+====================================================================================
+Модули
+
+Module search Поиск модуля
+1.Папка с самим скриптом
+2.Переменная PYTHONPATH
+3.Список папок, указанных при установке python
+
+import <module_name> # не делает елементы доступными, создает namespase
+# Доступ через "dot notation" module.element
+from <module_name> import <name(s)> # делает елементы доступными
+from <module_name> import * # делает елементы доступными (все)
+from <module_name> import <name> as <alias> # делает елемент доступным в новом namespace
+
+Packages - папка с модулями
+ Pkg\
+   -Module1
+   -Module2
+
+Можно импортировать пакет но...
+
+    __init__.py - инициализация пакета
+    __all__ - кого(что) можно импортировать из модуля?
+
+
+Пакетный менеджер pip
+pip install some-packet
+pip install -U some-packet # install or update
+pip uninstal some-packet
+pip freeze # the list of installed modules
+pip freeze > requirements.txt # save the list to the file
+pip install -r requirements.txt # install all the modules from the file
+
+
+Виртуальное окружение
+Для изоляции зависимостей(модулей) одного проекта от другого
+
+python -m venv envname # создать вирт окружение в локальной папке
+source ./envname/bin/activate # активировать окружение (linux/mac)
+.\envname\Scripts\activate # активировать окружение (Windows)
+deactivate # деактивировать окружение
+
+Папки в виртуальном окружении 
+bin – файлы, которые взаимодействуют с виртуальной средой;
+include – С-заголовки, компилирующие пакеты Python;
+lib – копия версии Python вместе с папкой «site-packages», в которой установлена каждая зависимость.
+
+====================================================================================
+
+Метакласс это «штука», которая создаёт классы.
+MyClass = MetaClass()
+MyObject = MyClass()
+
+====================================================================================
+
+MRO - method resolution order
+Порядок разрешения методов (method resolution order) позволяет Питону выяснить, 
+из какого класса-предка нужно вызывать метод, если он не обнаружен непосредственно 
+в классе-потомке.
+Алгоритм С3 позволяет разрешить возможные конфликтные ситуации при множественном 
+наследовании (конфликт методов, проблема ромба).
+ сначала добавляется данный класс, потом рассматривается первый класс из линеаризации 
+первого родителя, если он не встречается в других списках, то добавляется в финальный и 
+так далее. Если участвует, то переходим к рассмотрению следующего родителя. 
+
+====================================================================================
+
+Python Global Interpreter Lock (GIL)
+это своеобразная блокировка, позволяющая только одному потоку управлять интерпретатором 
+Python. Это означает, что в любой момент времени будет выполняться только один конкретный поток.
+Проблема, которую решает GIL, связана с тем, что в многопоточном приложении сразу несколько 
+потоков могут увеличивать или уменьшать значения этого счётчика ссылок. Это может привести к 
+тому, что память очистится неправильно и удалится тот объект, на который ещё существует ссылка.
+
+====================================================================================
+
+Garbage Collector (GC)
+Алгоритм подсчета ссылок это одна из самых простых техник для сборки мусора. 
+Объекты удаляются как только на них больше нет ссылок.
+В Python, переменные не хранят значения, а выступают в роли ссылок на объекты. 
+То есть когда вы присваивайте значение новой переменной, то сначала создается 
+объект с этим значением, а уже потом переменная начинает ссылаться на него. 
+На один объект может ссылаться множество переменных.
+Как только счетчик ссылок для определенного объекта достигает нуля интерпретатор 
+запускает процесс уничтожения объекта. Если удаленный объект содержал ссылки на другие 
+объекты, то эти ссылки также удаляются. Таким образом, удаление одного объекта может 
+повлечь за собой удаление других.
+
+====================================================================================
+
+Асинхронное программирование — это потоковая обработка программного обеспечения / 
+пользовательского пространства, где приложение, а не процессор, управляет потоками и 
+переключением контекста. В асинхронном программировании контекст переключается только в 
+заданных точках переключения, а не с периодичностью, определенной CPU.
+
+Async и Await
+Ключевое слово async идет до def, чтобы показать, что метод является асинхронным. 
+Ключевое слово await показывает, что вы ожидаете завершения сопрограммы.
+
+====================================================================================
+
+Python поддерживает несколько парадигм программирования: структурное, 
+объектно-ориентированное, функциональное, императивное и аспектно-ориентированное. 
+
+====================================================================================
