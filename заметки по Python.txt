@@ -1046,3 +1046,74 @@ Python поддерживает несколько парадигм програ
 объектно-ориентированное, функциональное, императивное и аспектно-ориентированное. 
 
 ====================================================================================
+
+Аннотации
+=
+price: int = 5
+title: str
+
+=
+def indent_right(s: str, width: int) -> str:
+    return " " * (max(0, width - len(s))) + s
+
+=
+class Book:
+    title: str
+    author: str
+
+    def __init__(self, title: str, author: str) -> None:
+        self.title = title
+        self.author = author
+
+b: Book = Book(title='Fahrenheit 451', author='Bradbury')
+
+Optional
+Если вы пометите переменную типом int и попытаетесь присвоить ей None, будет ошибка
+Для таких случаев предусмотрена в модуле typing аннотация Optional с указанием конкретного типа.
+from typing import Optional
+
+amount: int
+amount = None  # Incompatible types in assignment (expression has type "None", variable has type "int")
+
+price: Optional[int]
+price = None
+
+Any
+unknown_item: Any = 1
+
+
+Union
+def hundreds(x: Union[int, float]) -> int:
+    return (int(x) // 100) % 10
+
+hundreds(100.0)
+hundreds(100)
+hundreds("100")
+
+
+Списки
+titles: List[str] = ["hello", "world"]
+items: List = ["hello", 1]
+
+
+Кортежи
+price_container: Tuple[int] = (1,)
+price_with_title: Tuple[int, str] = (1, "hello")
+prices: Tuple[int, ...] = (1, 2)
+something: Tuple = (1, 2, "hello")
+
+Словари
+book_authors: Dict[str, str] = {"Fahrenheit 451": "Bradbury"}
+
+
+функция никогда не возвращает управление
+def forever() -> NoReturn:
+    while True:
+        pass
+
+Генератор 
+def generate_two() -> Iterable[int]:
+    yield 1
+    yield "2"
+
+====================================================================================
